@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { BrowserRouter as Router, useNavigate, useParams } from "react-router-dom";
-import Controls from "./Controls";
-import Nav from "./Nav";
-import Audio from "./Audio";
+import { useNavigate, useParams } from "react-router-dom";
+import Slider from "./Slider";
 
 export default function Main() {
 
@@ -18,75 +16,27 @@ export default function Main() {
         './img/8.jfif',
     ])
 
-    const imgRef = useRef<HTMLImageElement | null>(null)
-    const [imgWidth, setImgWidth] = useState(0);
-    const [imgHeight, setImgHeight] = useState(0);
-    const [audioLength, setAudioLength] = useState<number>(0)
-    const [currentTime, setCurrentTime] = useState<number>(0)
-    const [isPlaying, setIsPlaying] = useState<boolean>(false)
-    const [isMuted, setIsMuted] = useState<boolean>(false)
+    const [slideId, setSlideId] = useState<number | null>(null)
+
+    const navigate = useNavigate()
+    const params = useParams()
 
     useEffect(() => {
-        // Function to handle window resize
-        const handleResize = () => {
-            if (imgRef.current) {
-                const width = imgRef.current.offsetWidth;
-                const height = imgRef.current.y;
-                setImgWidth(width);
-                setImgHeight(height);
-            }
-        };
-
-        // Add event listener for window resize
-        window.addEventListener("resize", handleResize);
-
-        // Initial width calculation
-        if (imgRef.current) {
-            const width = imgRef.current.offsetWidth;
-            const height = imgRef.current.y;
-            setImgWidth(width);
-            setImgHeight(height);
+        const paramId = Number(params.slideId)
+        if (isNaN(paramId) || paramId >= imageUrls.length){
+            navigate('/0')
         }
+        if (paramId < imageUrls.length - 1) setSlideId(paramId)
+    }, [navigate])
 
-        // Clean up the event listener when the component unmounts
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const params = useParams()
-    const slideId = Number(params.slideId);
-
-    return (
-        <div className="h-screen overflow-hidden select-none">
-            <Nav
-                imageUrls={imageUrls}
-                slideId={slideId}
-                imgWidth={imgWidth}
-                imgHeight={imgHeight}
-                audioLength={audioLength}
-                currentTime={currentTime}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-                setCurrentTime={setCurrentTime}
-                isMuted={isMuted}
-                setIsMuted={setIsMuted}
-                />
-            <div className="flex">
-                {imageUrls.map((imgUrl, index) => (
-                    <div key={imgUrl} className="relative w-screen h-screen overflow-hidden flex-shrink-0 duration-1000" style={{ translate: `${-100 * slideId}%` }}>
-                        <img className="w-screen h-screen object-cover blur-md scale-105" src={imgUrl} alt={`Background Image ${index}`} />
-                        <div className="absolute top-0 left-0 w-screen flex h-screen justify-center items-center">
-                            <img ref={imgRef} className="max-h-screen" src={imgUrl} alt={`Image ${index}`} />
-                        </div>
-                    </div>
-                ))}
+    if (slideId === null) {
+        return (
+            <div className="w-screen h-screen flex justify-center items-center">
+                <img src='/favicon-32x32.png'/>
             </div>
-            <Controls slideId={slideId} imageUrls={imageUrls} />
-            <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying} 
-                isMuted={isMuted}/>
-        </div>
-    );
+        )
+    }
+
+    return <Slider slideId={slideId} imageUrls={imageUrls} />
+
 }

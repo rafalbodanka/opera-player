@@ -1,5 +1,6 @@
-import { Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Main from "./components/Main";
+import Invalid from "./components/Invalid";
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/:slideId' element={<Main />} />
+        <Route path="*" element={<Invalid />} />
       </Routes>
     </Router>
   );
