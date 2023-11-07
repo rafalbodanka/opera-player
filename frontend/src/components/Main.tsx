@@ -26,7 +26,7 @@ export default function Main() {
         if (isNaN(paramId) || paramId >= imageUrls.length){
             navigate('/0')
         }
-        if (paramId < imageUrls.length - 1) setSlideId(paramId)
+        if (paramId < imageUrls.length) setSlideId(paramId)
     }, [navigate])
 
     if (slideId === null) {
