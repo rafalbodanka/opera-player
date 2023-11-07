@@ -1,21 +1,23 @@
-import { ChevronLeftCircle } from "lucide-react";
-import { ChevronRightCircle } from "lucide-react";
+import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Controls(
-    { slideId, setSlideId }:
+    { slideId, imageUrls }:
         {
             slideId: number,
-            setSlideId: React.Dispatch<React.SetStateAction<number>>
+            imageUrls: string[]
         }
 ) {
 
-    const increment = () => {
-        slideId === 3 ? setSlideId(0) : setSlideId(prev => prev + 1)
-    }
+    const navigate = useNavigate()
 
-    const decrement = () => {
-        slideId === 0 ? setSlideId(3) : setSlideId(prev => prev - 1)
-    }
+    const increment = () => {
+        slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
+      };
+    
+      const decrement = () => {
+        slideId === 0 ? navigate(`/${imageUrls.length - 1}`) : navigate(`/${slideId - 1}`);
+      };
 
     return (
         <div className="w-full h-full absolute top-0 left-0 flex justify-between items-center font-bold text-white z-20">
