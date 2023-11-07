@@ -130,7 +130,7 @@ export default function ({
                 {isStartVisible && <Play size={96} color="white" className="cursor-pointer" />}
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
-                <audio onEnded={increment} autoPlay ref={audioRef} muted={false}>
+                <audio onEnded={increment} autoPlay onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
                     <source src={`./audio/0.mp3`} />
                 </audio>
             </div>
