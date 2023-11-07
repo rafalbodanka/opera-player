@@ -7,17 +7,23 @@ export default function ({
     setAudioLength,
     setCurrentTime,
     imageUrls,
+    isPlaying,
+    setIsPlaying,
+    isMuted,
 }: {
     slideId: number,
     setAudioLength: React.Dispatch<React.SetStateAction<number>>;
     setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
     imageUrls: string[];
+    isPlaying: boolean;
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+    isMuted: boolean;
 }) {
-    const [isPlaying, setIsPlaying] = useState<boolean>(false)
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const playRef = useRef<HTMLDivElement | null>(null)
     const audioVolume = useRef(1); // Using a ref to store volume
     const animationFrameRef = useRef(0);
+    const [isStartVisible, setIsStartVisible] = useState(true)
 
     useEffect(() => {
       if (!audioRef.current) return;
@@ -94,6 +100,7 @@ export default function ({
     const start = () => {
         setIsPlaying(true)
         audioRef.current?.play()
+        setIsStartVisible(false)
     }
 
     const navigate = useNavigate()
@@ -102,17 +109,28 @@ export default function ({
         slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
       };
 
+    useEffect(() => {
+        if(!audioRef.current) return
+        if (!isMuted) audioRef.current.muted = false
+        if (isMuted) audioRef.current.muted = true
+    }, [isMuted])
+
+    useEffect(() => {
+        if (!isPlaying) audioRef.current?.pause()
+        if (isPlaying) audioRef.current?.play()
+    }, [isPlaying])
+
     return (
         <>
             <div
             className={`w-screen fixed top-0 left-0 h-screen bg-black bg-opacity-70 flex justify-center items-center duration-500 z-50 ${
-            isPlaying ? "fade-out" : "fade-in"}`}
+            !isStartVisible ? "fade-out" : "fade-in"}`}
             ref={playRef}
             onClick={start}>
-                <Play size={96} color="white" className="cursor-pointer" />
+                {isStartVisible && <Play size={96} color="white" className="cursor-pointer" />}
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
-                <audio onEnded={increment} controls autoPlay ref={audioRef} muted={false}>
+                <audio onEnded={increment} autoPlay ref={audioRef} muted={false}>
                     <source src={`./audio/0.mp3`} />
                 </audio>
             </div>

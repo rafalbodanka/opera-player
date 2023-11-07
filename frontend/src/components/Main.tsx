@@ -23,6 +23,8 @@ export default function Main() {
     const [imgHeight, setImgHeight] = useState(0);
     const [audioLength, setAudioLength] = useState<number>(0)
     const [currentTime, setCurrentTime] = useState<number>(0)
+    const [isPlaying, setIsPlaying] = useState<boolean>(false)
+    const [isMuted, setIsMuted] = useState<boolean>(false)
 
     useEffect(() => {
         // Function to handle window resize
@@ -50,14 +52,26 @@ export default function Main() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [imgRef]);
+    }, []);
 
     const params = useParams()
     const slideId = Number(params.slideId);
 
     return (
         <div className="h-screen overflow-hidden select-none">
-            <Nav imageUrls={imageUrls} slideId={slideId} imgWidth={imgWidth} imgHeight={imgHeight} audioLength={audioLength} currentTime={currentTime} setCurrentTime={setCurrentTime} />
+            <Nav
+                imageUrls={imageUrls}
+                slideId={slideId}
+                imgWidth={imgWidth}
+                imgHeight={imgHeight}
+                audioLength={audioLength}
+                currentTime={currentTime}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                setCurrentTime={setCurrentTime}
+                isMuted={isMuted}
+                setIsMuted={setIsMuted}
+                />
             <div className="flex">
                 {imageUrls.map((imgUrl, index) => (
                     <div key={imgUrl} className="relative w-screen h-screen overflow-hidden flex-shrink-0 duration-1000" style={{ translate: `${-100 * slideId}%` }}>
@@ -69,7 +83,10 @@ export default function Main() {
                 ))}
             </div>
             <Controls slideId={slideId} imageUrls={imageUrls} />
-            <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}/>
+            <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying} 
+                isMuted={isMuted}/>
         </div>
     );
 }
