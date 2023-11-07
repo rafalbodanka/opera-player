@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.svg-shadow {
+  filter: 
+    drop-shadow(-1px -1px 0px #2f2f2f) 
+    drop-shadow(1px -1px 0px #2f2f2f) 
+    drop-shadow(1px 1px 0px #2f2f2f)
+    drop-shadow(-1px 1px 0px #2f2f2f)
+}
+
+.fade-out {
+  transition: opacity 1s;
+  opacity: 0;
+  z-index: 0;
+}
+
+.fade-in {
+  transition: opacity 1s;
+  opacity: 100;
+  z-index: 50;
+}
