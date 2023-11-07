@@ -1,25 +1,67 @@
 import { useEffect, useRef, useState } from "react"
 import { Play } from "lucide-react"
+import { useNavigate } from "react-router-dom";
 
 export default function ({
-    slideId
+    slideId,
+    setAudioLength,
+    setCurrentTime,
+    imageUrls,
 }: {
-    slideId: number
+    slideId: number,
+    setAudioLength: React.Dispatch<React.SetStateAction<number>>;
+    setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+    imageUrls: string[];
 }) {
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const playRef = useRef<HTMLDivElement | null>(null)
     const audioVolume = useRef(1); // Using a ref to store volume
+    const animationFrameRef = useRef(0);
 
     useEffect(() => {
       if (!audioRef.current) return;
   
       setAudioVolumeSmoothly(1, 0, 1000, () => {
-        if(audioRef.current) audioRef.current.src = `./audio/${slideId}.mp3`;
-        setAudioVolumeSmoothly(0, 1, 1000, () => {
+        if(audioRef.current)
+        {
+            audioRef.current.src = `./audio/${slideId}.mp3`;
+            audioRef.current.addEventListener('loadedmetadata', () => {
+                audioRef.current && setAudioLength(audioRef.current?.duration);
+            });
+        }
+        setAudioVolumeSmoothly(0, 1, 1000, () => {});
         });
-      });
     }, [slideId]);
+
+    useEffect(() => {
+        audioRef.current && setCurrentTime(audioRef.current?.currentTime);
+    }, [])
+
+    useEffect(() => {
+        const updateCurrentTime = () => {
+          if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+            requestAnimationFrame(updateCurrentTime);
+          }
+        };
+    
+        if (audioRef.current) {
+          audioRef.current.addEventListener("play", updateCurrentTime);
+          audioRef.current.addEventListener("pause", () => {
+            cancelAnimationFrame(animationFrameRef.current);
+        });
+        }
+    
+        return () => {
+          if (audioRef.current) {
+            audioRef.current.removeEventListener("play", updateCurrentTime);
+            audioRef.current.removeEventListener("pause", () => {
+            cancelAnimationFrame(animationFrameRef.current);
+            });
+          }
+        };
+      }, [audioRef.current?.src]);
 
   const setAudioVolumeSmoothly = (
     fromVolume: number,
@@ -54,6 +96,12 @@ export default function ({
         audioRef.current?.play()
     }
 
+    const navigate = useNavigate()
+
+    const increment = () => {
+        slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
+      };
+
     return (
         <>
             <div
@@ -64,7 +112,7 @@ export default function ({
                 <Play size={96} color="white" className="cursor-pointer" />
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
-                <audio controls loop autoPlay ref={audioRef} muted={false}>
+                <audio onEnded={increment} controls autoPlay ref={audioRef} muted={false}>
                     <source src={`./audio/0.mp3`} />
                 </audio>
             </div>
