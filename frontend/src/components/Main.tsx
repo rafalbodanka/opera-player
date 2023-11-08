@@ -44,12 +44,14 @@ export default function Main() {
                     audio[slideId] = slide.audioURL
                 }
                 const prevImg = id === 0 ? slideData[slideData.length - 1].imageURL : slideData[id - 1].imageURL
-                if (!img.includes(prevImg)) {
-                    id === 0 ? img[slideData.length - 1] = prevImg : img[slideId - 1] = prevImg
+                const prevAudio = id === 0 ? slideData[slideData.length - 1].audioURL : slideData[id - 1].audioURL
+                if (!audio.includes(prevAudio)) {
+                    id === 0 ? audio[slideData.length - 1] = prevAudio : audio[slideId - 1] = prevAudio
                 }
                 const nextImg = slideData.length - 1 === id ? slideData[0].imageURL : slideData[id + 1].imageURL
-                if (!img.includes(nextImg)) {
-                    id === slideData.length - 1 ? img[0] = nextImg : img[slideId + 1] = nextImg
+                const nextAudio = slideData.length - 1 === id ? slideData[0].audioURL : slideData[id + 1].audioURL
+                if (!audio.includes(nextAudio)) {
+                    id === slideData.length - 1 ? audio[0] = nextAudio : audio[slideId + 1] = nextAudio
                 }
             }
         })
