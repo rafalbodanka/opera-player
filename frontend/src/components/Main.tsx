@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Slider from "./Slider";
+import useGetSlidesData from "../hooks/useGetSlidesData";
 
 export default function Main() {
 
@@ -16,6 +17,11 @@ export default function Main() {
         './img/8.png',
         './img/9.png'
     ])
+
+    const slideData = useGetSlidesData()
+    useEffect(() => {
+        console.log(slideData)
+    }, [slideData])
 
     const [slideId, setSlideId] = useState<number | null>(null)
 

@@ -30,7 +30,6 @@ export default function Nav({
     const [playedDistance, setPlayedDistance] = useState(currentTime / audioLength)
 
     useEffect(() => {
-        console.log(currentTime, audioLength)
         setPlayedDistance(currentTime/audioLength)
     }, [currentTime, audioLength])
 
