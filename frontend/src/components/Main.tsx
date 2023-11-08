@@ -5,15 +5,16 @@ import Slider from "./Slider";
 export default function Main() {
 
     const [imageUrls, setImageUrls] = useState<string[]>([
-        './img/0.jfif',
-        './img/1.jfif',
-        './img/2.jfif',
-        './img/3.jfif',
-        './img/4.jfif',
-        './img/5.jfif',
-        './img/6.jfif',
-        './img/7.jfif',
-        './img/8.jfif',
+        './img/0.png',
+        './img/1.png',
+        './img/2.png',
+        './img/3.png',
+        './img/4.png',
+        './img/5.png',
+        './img/6.png',
+        './img/7.png',
+        './img/8.png',
+        './img/9.png'
     ])
 
     const [slideId, setSlideId] = useState<number | null>(null)
