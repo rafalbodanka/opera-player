@@ -5,45 +5,58 @@ import useGetSlidesData from "../hooks/useGetSlidesData";
 
 export default function Main() {
 
-    const [imageUrls, setImageUrls] = useState<string[]>([
-        './img/0.png',
-        './img/1.png',
-        './img/2.png',
-        './img/3.png',
-        './img/4.png',
-        './img/5.png',
-        './img/6.png',
-        './img/7.png',
-        './img/8.png',
-        './img/9.png'
-    ])
-
-    const slideData = useGetSlidesData()
-    useEffect(() => {
-        console.log(slideData)
-    }, [slideData])
-
     const [slideId, setSlideId] = useState<number | null>(null)
+    const [imageUrls, setImageUrls] = useState<string[]>([])
+    const [audioUrls, setAudioUrls] = useState<string[]>([])
+
+    const params = useParams()
+    const paramId = Number(params.slideId)
 
     const navigate = useNavigate()
-    const params = useParams()
+
+    const slideData = useGetSlidesData()
 
     useEffect(() => {
-        const paramId = Number(params.slideId)
-        if (isNaN(paramId) || paramId >= imageUrls.length){
+        if (!slideData || slideData.length === 0) return
+        if (isNaN(paramId) || paramId > slideData.length - 1) {
             navigate('/0')
         }
-        if (paramId < imageUrls.length) setSlideId(paramId)
-    }, [navigate])
+        setSlideId(paramId)
+        if (imageUrls.length < 1) {
+            setImageUrls(Array.from({ length: slideData.length }, () => ''))
+            setAudioUrls(Array.from({ length: slideData.length }, () => ''))
+        }
+    }, [slideData, paramId])
+
+    console.log(imageUrls)
+    console.log(audioUrls)
+
+    useEffect(() => {
+        if (!slideData || slideId === null) return
+        const img: string[] = imageUrls
+        const audio: string[] = audioUrls
+        slideData.map((slide, id) => {
+            if (id === slideId) {
+                if (!img.includes(slide.imageURL)) {
+                    img[slideId] = slide.imageURL
+                }
+                if (!audio.includes(slide.audioURL)) {
+                    audio[slideId] = slide.audioURL
+                }
+            }
+        })
+        setImageUrls(img)
+        setAudioUrls(audio)
+    }, [slideId])
 
     if (slideId === null) {
         return (
             <div className="w-screen h-screen flex justify-center items-center">
-                <img src='/favicon-32x32.png'/>
+                <img src='/favicon-32x32.png' />
             </div>
         )
     }
 
-    return <Slider slideId={slideId} imageUrls={imageUrls} />
+    return <Slider slideData={slideData} slideId={slideId} imageUrls={imageUrls} setImageUrls={setImageUrls} audioUrls={audioUrls} setAudioUrls={setAudioUrls} />
 
 }

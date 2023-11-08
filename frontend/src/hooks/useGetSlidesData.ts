@@ -9,7 +9,6 @@ export default function useGetSlidesData() {
             try {
                 const response = await fetch('http://localhost:5000/data')
                 const data = await response.json()
-                console.log(data)
                 setSlideData(data)
             } catch (err) {
                 console.log(err)

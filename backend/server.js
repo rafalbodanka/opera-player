@@ -33,7 +33,6 @@ app.get('/get-image/:id', (req, res) => {
     const imageFilePath = path.join(mediaDirectory, 'images', `${id}.png`);
 
     if (id && /^\d+$/.test(id) && id >= 0 && id <= 9) {
-        res.set('Content-Type', 'image/jpeg');
         res.sendFile(imageFilePath, (err) => {
             if (err) {
                 res.status(404).send('Image file not found');

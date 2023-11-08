@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Play } from "lucide-react"
 import { useNavigate } from "react-router-dom";
+import { Slide } from "../types/Slide";
 
 export default function ({
     slideId,
@@ -10,6 +11,8 @@ export default function ({
     isPlaying,
     setIsPlaying,
     isMuted,
+    audioUrls,
+    slideData
 }: {
     slideId: number,
     setAudioLength: React.Dispatch<React.SetStateAction<number>>;
@@ -18,27 +21,28 @@ export default function ({
     isPlaying: boolean;
     setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
     isMuted: boolean;
+    audioUrls: string[];
+    slideData: Slide[];
 }) {
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const playRef = useRef<HTMLDivElement | null>(null)
-    const audioVolume = useRef(1); // Using a ref to store volume
+    const audioVolume = useRef(1);
     const animationFrameRef = useRef(0);
     const [isStartVisible, setIsStartVisible] = useState(true)
 
     useEffect(() => {
-      if (!audioRef.current) return;
-  
+      if (!audioRef.current || !slideData) return;
       setAudioVolumeSmoothly(1, 0, 1000, () => {
         if(audioRef.current)
         {
-            audioRef.current.src = `./audio/${slideId}.mp3`;
+            audioRef.current.src = audioUrls[slideId];
             audioRef.current.addEventListener('loadedmetadata', () => {
                 audioRef.current && setAudioLength(audioRef.current?.duration);
             });
         }
         setAudioVolumeSmoothly(0, 1, 1000, () => {});
         });
-    }, [slideId]);
+    }, [audioRef, slideId, slideData, audioUrls]);
 
     useEffect(() => {
         audioRef.current && setCurrentTime(audioRef.current?.currentTime);
@@ -131,7 +135,6 @@ export default function ({
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
                 <audio onEnded={increment} autoPlay onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
-                    <source src={`./audio/0.mp3`} />
                 </audio>
             </div>
         </>

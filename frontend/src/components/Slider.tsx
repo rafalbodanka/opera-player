@@ -2,13 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import Controls from "./Controls";
 import Nav from "./Nav";
 import Audio from "./Audio";
+import { Slide } from "../types/Slide";
 
 export default function Slider({
+    slideData,
     slideId,
     imageUrls,
-}:{
+    setImageUrls,
+    audioUrls,
+    setAudioUrls,
+}: {
+    slideData: Slide[],
     slideId: number,
-    imageUrls: string[]
+    imageUrls: string[],
+    setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+    audioUrls: string[],
+    setAudioUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
 
     const imgRef = useRef<HTMLImageElement | null>(null)
@@ -30,29 +39,19 @@ export default function Slider({
             }
         };
 
+        handleResize()
         // Add event listener for window resize
         window.addEventListener("resize", handleResize);
-        window.addEventListener("load", handleResize)
-
-        // Initial width calculation
-        if (imgRef.current) {
-            const width = imgRef.current.offsetWidth;
-            const height = imgRef.current.y;
-
-            setImgWidth(width);
-            setImgHeight(height);
-        }
-
         // Clean up the event listener when the component unmounts
         return () => {
             window.removeEventListener("resize", handleResize);
-            window.removeEventListener("load", handleResize);
         };
-    }, [imgHeight]);
-    
+    }, [imgRef, imgHeight]);
+
     return (
         <div className="h-screen overflow-hidden select-none">
             <Nav
+                slideData={slideData}
                 imageUrls={imageUrls}
                 slideId={slideId}
                 imgWidth={imgWidth}
@@ -64,22 +63,30 @@ export default function Slider({
                 setCurrentTime={setCurrentTime}
                 isMuted={isMuted}
                 setIsMuted={setIsMuted}
-                />
+            />
             <div className="flex">
                 {imageUrls.map((imgUrl, index) => (
-                    <div key={imgUrl} className="relative w-screen h-screen overflow-hidden flex-shrink-0 duration-1000" style={{ translate: `${-100 * slideId}%` }}>
+                    <div key={index} className="relative w-screen h-screen overflow-hidden flex-shrink-0 duration-1000" style={{ translate: `${-100 * slideId}%` }}>
                         <img className="w-screen h-screen object-cover blur-md scale-105" src={imgUrl} alt={`Background Image ${index}`} />
                         <div className="absolute top-0 left-0 w-screen flex h-screen justify-center items-center">
-                            <img ref={imgRef} className="max-h-screen" src={imgUrl} alt={`Image ${index}`} />
+                            {
+                                slideId === index ?
+                                <img ref={imgRef} className="max-h-screen relative" src={imgUrl} alt={`Image ${index}`}/>
+                                :
+                                <img className="max-h-screen relative" src={imgUrl} alt={`Image ${index}`}/>
+                            }
                         </div>
                     </div>
                 ))}
             </div>
-            <Controls slideId={slideId} imageUrls={imageUrls} setCurrentTime={setCurrentTime}/>
+            <Controls slideId={slideId} imageUrls={imageUrls} setCurrentTime={setCurrentTime} />
             <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}
                 isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying} 
-                isMuted={isMuted}/>
+                setIsPlaying={setIsPlaying}
+                isMuted={isMuted}
+                audioUrls={audioUrls}
+                slideData={slideData}
+            />
         </div>
     );
 }
