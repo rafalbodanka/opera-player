@@ -1,4 +1,5 @@
 import { Pause, Play, Volume2, VolumeX } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Nav({
     imageUrls,
@@ -26,7 +27,12 @@ export default function Nav({
     setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 
-    const playedDistance = currentTime / audioLength
+    const [playedDistance, setPlayedDistance] = useState(currentTime / audioLength)
+
+    useEffect(() => {
+        console.log(currentTime, audioLength)
+        setPlayedDistance(currentTime/audioLength)
+    }, [currentTime, audioLength])
 
     return (
         <div className="z-30 w-screen fixed left-0" style={{ top: imgHeight }}>

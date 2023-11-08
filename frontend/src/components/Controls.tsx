@@ -2,21 +2,24 @@ import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Controls(
-    { slideId, imageUrls }:
+    { slideId, imageUrls, setCurrentTime  }:
         {
             slideId: number,
-            imageUrls: string[]
+            imageUrls: string[],
+            setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
         }
 ) {
 
     const navigate = useNavigate()
 
     const increment = () => {
+        setCurrentTime(0)
         slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
       };
     
       const decrement = () => {
         slideId === 0 ? navigate(`/${imageUrls.length - 1}`) : navigate(`/${slideId - 1}`);
+        setCurrentTime(0)
       };
 
     return (

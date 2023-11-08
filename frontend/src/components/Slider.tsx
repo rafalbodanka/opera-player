@@ -75,7 +75,7 @@ export default function Slider({
                     </div>
                 ))}
             </div>
-            <Controls slideId={slideId} imageUrls={imageUrls} />
+            <Controls slideId={slideId} imageUrls={imageUrls} setCurrentTime={setCurrentTime}/>
             <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying} 
