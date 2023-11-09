@@ -39,9 +39,9 @@ It provides endpoints for fetching particular images and audio, as well as a '/d
       "text": "This is slide 1 text",
       "imageURL": "url_to_image_1",
       "audioURL": "url_to_audio_1"
-   },
+   }
    ...
-];
+]
 ```
 
 Images and audio are stored simply in the 'media' folder indexed with numbers 0-9 to make them possible to be fetched according to the current slide index.
