@@ -33,10 +33,14 @@ export default function Slider({
         // Function to handle window resize
         const handleResize = () => {
             if (imgRef.current) {
-                const width = imgRef.current.offsetWidth;
-                const height = imgRef.current.y;
-                setImgWidth(width);
-                setImgHeight(height);
+                imgRef.current.onload = () => {
+                    if (imgRef.current) {
+                        const width = imgRef.current.offsetWidth;
+                        const height = imgRef.current.y;
+                        setImgWidth(width);
+                        setImgHeight(height);
+                    }
+                };
             }
         };
 
@@ -47,7 +51,7 @@ export default function Slider({
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [imgRef, imgHeight]);
+    }, [imgRef, imgHeight, slideId]);
 
     return (
         <div className="h-screen overflow-hidden select-none">

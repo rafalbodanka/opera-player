@@ -106,7 +106,7 @@ export default function ({
 
     const start = async () => {
         setIsPlaying(true)
-        await audioRef.current?.play()
+        if(audioRef.current?.oncanplay) audioRef.current.play()
         setIsStartVisible(false)
     }
 
