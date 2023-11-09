@@ -110,8 +110,9 @@ export default function ({
     const navigate = useNavigate()
 
     const increment = () => {
-        slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
-      };
+      setCurrentTime(0)
+      slideId !== imageUrls.length - 1 && navigate(`/${slideId + 1}`);
+  };
 
     useEffect(() => {
         if(!audioRef.current) return
@@ -139,7 +140,7 @@ export default function ({
                 {isStartVisible && <Play size={96} color="white" className="cursor-pointer" />}
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
-              <audio onEnded={increment} autoPlay onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
+              <audio onEnded={increment} onEndedCapture={() => setIsPlaying(false)} autoPlay={!isStartVisible} onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
               </audio>
             </div>
         </>

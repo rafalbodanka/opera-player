@@ -23,7 +23,7 @@
 }
 
 .fade-in {
+  opacity: 1;
   transition: opacity 1s;
-  opacity: 100;
   z-index: 50;
 }

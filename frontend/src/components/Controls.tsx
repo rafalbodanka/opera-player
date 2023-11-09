@@ -14,11 +14,11 @@ export default function Controls(
 
     const increment = () => {
         setCurrentTime(0)
-        slideId === imageUrls.length - 1 ? navigate('/0') : navigate(`/${slideId + 1}`);
+        slideId !== imageUrls.length - 1 && navigate(`/${slideId + 1}`);
     };
 
     const decrement = () => {
-        slideId === 0 ? navigate(`/${imageUrls.length - 1}`) : navigate(`/${slideId - 1}`);
+        navigate(`/${slideId - 1}`);
         setCurrentTime(0)
     };
 
