@@ -12,7 +12,9 @@ export default function ({
     setIsPlaying,
     isMuted,
     audioUrls,
-    slideData
+    slideData,
+    isStartVisible,
+    setIsStartVisible
 }: {
     slideId: number,
     setAudioLength: React.Dispatch<React.SetStateAction<number>>;
@@ -23,12 +25,13 @@ export default function ({
     isMuted: boolean;
     audioUrls: string[];
     slideData: Slide[];
+    isStartVisible: boolean;
+    setIsStartVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const playRef = useRef<HTMLDivElement | null>(null)
     const audioVolume = useRef(1);
     const animationFrameRef = useRef(0);
-    const [isStartVisible, setIsStartVisible] = useState(true)
 
     useEffect(() => {
       if (!audioRef.current || !slideData) return;

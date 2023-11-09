@@ -27,6 +27,7 @@ export default function Slider({
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
     const [isMuted, setIsMuted] = useState<boolean>(false)
+    const [isStartVisible, setIsStartVisible] = useState(true)
 
     useEffect(() => {
         // Function to handle window resize
@@ -77,8 +78,8 @@ export default function Slider({
                                     <img className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
                                 }
                                 {
-                                isPlaying &&
-                                <div className="fade-in duration-1000 absolute bottom-0 left-0 text-white px-4 text-3xl mb-16 text-center pt-2 pb-4 bg-black bg-opacity-40 filter blur-t-md font-bold">
+                                !isStartVisible &&
+                                <div className="fade-in fade-out absolute bottom-0 left-0 text-white px-4 text-3xl mb-16 text-center pt-2 pb-4 bg-black bg-opacity-40 filter blur-t-md font-bold">
                                     <p>{slideData[index].text}</p>
                                 </div>
                                 }
@@ -87,13 +88,15 @@ export default function Slider({
                     </div>
                 ))}
             </div>
-            <Controls slideId={slideId} imageUrls={imageUrls} setCurrentTime={setCurrentTime} />
+            <Controls slideId={slideId} imageUrls={imageUrls} setCurrentTime={setCurrentTime} setIsPlaying={setIsPlaying} setAudioLength={setAudioLength}/>
             <Audio slideId={slideId} setAudioLength={setAudioLength} setCurrentTime={setCurrentTime} imageUrls={imageUrls}
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying}
                 isMuted={isMuted}
                 audioUrls={audioUrls}
                 slideData={slideData}
+                isStartVisible={isStartVisible}
+                setIsStartVisible={setIsStartVisible}
             />
         </div>
     );

@@ -2,11 +2,13 @@ import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Controls(
-    { slideId, imageUrls, setCurrentTime }:
+    { slideId, imageUrls, setCurrentTime, setIsPlaying, setAudioLength }:
         {
             slideId: number,
             imageUrls: string[],
             setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+            setAudioLength: React.Dispatch<React.SetStateAction<number>>;
+            setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
         }
 ) {
 
@@ -14,12 +16,16 @@ export default function Controls(
 
     const increment = () => {
         setCurrentTime(0)
+        setAudioLength(1000)
+        setIsPlaying(false)
         slideId !== imageUrls.length - 1 && navigate(`/${slideId + 1}`);
     };
 
     const decrement = () => {
         navigate(`/${slideId - 1}`);
+        setIsPlaying(false)
         setCurrentTime(0)
+        setAudioLength(1000)
     };
 
     return (
