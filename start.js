@@ -18,6 +18,7 @@ const installDependencies = (directory) => {
 };
 
 const startServices = async () => {
+    console.log('Installing dependencies...')
     try {
         // Install backend dependencies
         await installDependencies(backendPath);

@@ -21,10 +21,13 @@ app.get('/get-audio/:id', (req, res) => {
         res.sendFile(audioFilePath, (err) => {
             if (err) {
                 res.status(404).send('Audio file not found');
+                return
             }
+            return
         });
     } else {
         res.status(404).send('Invalid ID');
+        return
     }
 });
 
@@ -36,10 +39,13 @@ app.get('/get-image/:id', (req, res) => {
         res.sendFile(imageFilePath, (err) => {
             if (err) {
                 res.status(404).send('Image file not found');
+                return
             }
+            return
         });
     } else {
         res.status(404).send('Invalid ID');
+        return
     }
 });
 
@@ -49,10 +55,12 @@ app.get('/data', (req, res) => {
     fs.readFile(dataPath, 'utf-8')
       .then((data) => {
         res.json(JSON.parse(data));
+        return
       })
       .catch((error) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
+        return
       });
   });
 
