@@ -83,7 +83,7 @@ export default function Slider({
                                 }
                                 {
                                 !isStartVisible &&
-                                <div className="fade-in fade-out absolute bottom-0 left-0 text-white px-4 text-3xl mb-16 text-center pt-2 pb-4 bg-black bg-opacity-40 filter blur-t-md font-bold">
+                                <div className="fade-in fade-out absolute bottom-0 left-0 text-white px-4 text-sm sm:text-2xl lg:text-3xl mb-2 md:mb-8 lg:mb-16 text-center pt-2 pb-4 bg-black bg-opacity-40 filter blur-t-md font-bold">
                                     <p>{slideData[index].text}</p>
                                 </div>
                                 }
