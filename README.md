@@ -35,10 +35,10 @@ It provides endpoints for fetching particular images and audio, as well as a '/d
 ```json
 [
    {
-      id: 1,
-      text: 'This is slide 1 text',
-      imageURL: 'url_to_image_1',
-      audioURL: 'url_to_audio_1'
+      'id': 1,
+      'text': 'This is slide 1 text',
+      'imageURL': 'url_to_image_1',
+      'audioURL': 'url_to_audio_1'
    },
    ...
 ];
