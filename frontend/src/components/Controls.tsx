@@ -17,13 +17,11 @@ export default function Controls(
     const increment = () => {
         setCurrentTime(0)
         setAudioLength(1000)
-        setIsPlaying(false)
         slideId !== imageUrls.length - 1 && navigate(`/${slideId + 1}`);
     };
 
     const decrement = () => {
         navigate(`/${slideId - 1}`);
-        setIsPlaying(false)
         setCurrentTime(0)
         setAudioLength(1000)
     };

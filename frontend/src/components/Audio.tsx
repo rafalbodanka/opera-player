@@ -42,8 +42,8 @@ export default function ({
             audioRef.current.addEventListener('loadedmetadata', () => {
                 audioRef.current && setAudioLength(audioRef.current?.duration);
             });
-        }
-        setAudioVolumeSmoothly(0, 1, 1000, () => {});
+          }
+          setAudioVolumeSmoothly(0, 1, 1000, () => {});
         });
     }, [audioRef, slideId, slideData, audioUrls]);
 
