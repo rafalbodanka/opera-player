@@ -41,6 +41,10 @@ export default function Slider({
                         setImgHeight(height);
                     }
                 };
+                const width = imgRef.current.offsetWidth;
+                const height = imgRef.current.y;
+                setImgWidth(width);
+                setImgHeight(height);
             }
         };
 
