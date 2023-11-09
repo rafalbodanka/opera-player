@@ -40,7 +40,6 @@ It provides endpoints for fetching particular images and audio, as well as a '/d
       "imageURL": "url_to_image_1",
       "audioURL": "url_to_audio_1"
    }
-   ...
 ]
 ```
 
