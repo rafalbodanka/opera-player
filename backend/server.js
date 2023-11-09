@@ -49,20 +49,17 @@ app.get('/get-image/:id', (req, res) => {
     }
 });
 
-app.get('/data', (req, res) => {
+app.get('/data', async (req, res) => {
     const dataPath = path.join(__dirname, 'media','data.json');
     
-    fs.readFile(dataPath, 'utf-8')
-      .then((data) => {
+    try {
+        const data = await fs.readFile(dataPath, 'utf-8');
         res.json(JSON.parse(data));
-        return
-      })
-      .catch((error) => {
+    } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
-        return
-      });
-  });
+    }
+});
 
 
 const port = 5000;
