@@ -20,6 +20,7 @@ export default function Main() {
         if (!slideData || slideData.length === 0) return
         if (isNaN(paramId) || paramId > slideData.length - 1) {
             navigate('/0')
+            location.reload()
         }
         setSlideId(paramId)
         if (imageUrls.length < 1) {

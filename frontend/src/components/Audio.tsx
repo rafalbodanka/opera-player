@@ -101,9 +101,9 @@ export default function ({
     requestAnimationFrame(step);
   };
 
-    const start = () => {
+    const start = async () => {
         setIsPlaying(true)
-        audioRef.current?.play()
+        await audioRef.current?.play()
         setIsStartVisible(false)
     }
 
@@ -120,8 +120,13 @@ export default function ({
     }, [isMuted])
 
     useEffect(() => {
-        if (!isPlaying) audioRef.current?.pause()
-        if (isPlaying) audioRef.current?.play()
+      const handleAction = async () => {
+        try {
+          if (!isPlaying) audioRef.current?.pause()
+          if (isPlaying) await audioRef.current?.play()
+        } catch(err) {}
+      }
+      handleAction()
     }, [isPlaying])
 
     return (
