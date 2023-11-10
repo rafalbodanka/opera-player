@@ -27,7 +27,7 @@ export default function Controls(
     };
 
     return (
-        <div className="w-full h-full absolute top-0 left-0 flex justify-between items-center font-bold text-white z-20">
+        <div data-testid='control' className="w-full h-full absolute top-0 left-0 flex justify-between items-center font-bold text-white z-20">
             {slideId !== 0 ?
                 <div className="duration-500 bg-gray-800 px-8 bg-opacity-0 hover:bg-opacity-30 h-screen flex items-center justify-center cursor-pointer"
                     onClick={decrement}>

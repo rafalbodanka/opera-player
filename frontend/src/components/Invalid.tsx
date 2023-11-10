@@ -8,7 +8,7 @@ export default function Invalid() {
         navigate('/0')
     }, [])
     return (
-        <div className="w-screen h-screen flex justify-center items-center">
+        <div data-testid="invalid-component" className="w-screen h-screen flex justify-center items-center">
         </div>
     )
 }

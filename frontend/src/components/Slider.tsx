@@ -81,7 +81,7 @@ export default function Slider({
                             <div className="relative">
                                 {
                                     slideId === index ?
-                                    <img ref={imgRef} className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
+                                    <img data-testid='image' ref={imgRef} className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
                                     :
                                     <img className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
                                 }

@@ -136,6 +136,7 @@ export default function ({
     return (
         <>
             <div
+            data-testid='start-button'
             className={`w-screen fixed top-0 left-0 h-screen bg-black bg-opacity-70 flex justify-center items-center duration-500 z-50 ${
             !isStartVisible ? "fade-out" : "fade-in"}`}
             ref={playRef}
@@ -143,7 +144,7 @@ export default function ({
                 {isStartVisible && <Play size={96} color="white" className="cursor-pointer" />}
             </div>
             <div className="fixed bottom-0 flex justify-center w-screen z-20">
-              <audio onEnded={increment} onEndedCapture={() => setIsPlaying(false)} autoPlay={!isStartVisible} onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
+              <audio data-testid='audio-component' onEnded={increment} onEndedCapture={() => setIsPlaying(false)} autoPlay={!isStartVisible} onPlay={() => setIsPlaying(true)} ref={audioRef} muted={false}>
               </audio>
             </div>
         </>

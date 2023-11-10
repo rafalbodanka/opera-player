@@ -62,7 +62,7 @@ export default function Main() {
 
     if (slideId === null) {
         return (
-            <div className="w-screen h-screen flex justify-center items-center">
+            <div data-testid="main-component" className="w-screen h-screen flex justify-center items-center">
                 <img src='/favicon-32x32.png' />
             </div>
         )

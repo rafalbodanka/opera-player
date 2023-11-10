@@ -17,7 +17,7 @@ app.get('/get-audio/:id', async (req, res) => {
     const { id } = req.params;
     if (id && /^\d+$/.test(id) && id >= 0 && id <= 9) {
         const audioFilePath = path.join(mediaDirectory, 'audio', `${id}.mp3`);
-        
+
         // Use try-catch to handle any errors when sending the file
         try {
             res.sendFile(audioFilePath, (err) => {
@@ -58,18 +58,18 @@ app.get('/get-image/:id', async (req, res) => {
 });
 
 app.get('/data', async (req, res) => {
-    const dataPath = path.join(__dirname, 'media','data.json');
-    
+    const dataPath = path.join(__dirname, 'media', 'data.json');
+
     await fs.readFile(dataPath, 'utf-8')
-      .then((data) => {
-        return res.json(JSON.parse(data));
-      })
-      .catch((error) => {
-        console.error(error);
-        return res.status(500).send('Internal Server Error');
-      });
-      return
-  });
+        .then((data) => {
+            return res.json(JSON.parse(data));
+        })
+        .catch((error) => {
+            console.error(error);
+            return res.status(500).send('Internal Server Error');
+        });
+    return
+});
 
 
 const port = 5000;
