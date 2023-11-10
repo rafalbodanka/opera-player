@@ -59,7 +59,9 @@ Arrays imageUrls and audioUrls are initially filled with empty strings '' depend
 
 ![Main view](./assets/main-view.png)
 ![Main control view](./assets/main-control-view.png)
-![Use video](./assets/opera.mp4)
+https://github.com/rafalbodanka/opera-player/assets/99665986/99e776eb-e03a-473a-a021-c2f21df8a4e9
+
+
 
 ### Tests
 
