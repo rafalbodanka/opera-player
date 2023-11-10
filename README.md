@@ -61,6 +61,16 @@ Arrays imageUrls and audioUrls are initially filled with empty strings '' depend
 ![Main control view](./assets/main-control-view.png)
 ![Use video](./assets/opera.mp4)
 
+### Tests
+
+Backend tests include checking whether endpoints return the correct status code and whether they return the correct content type for a given file type. Mocha, chai, and supertest were used for testing the Express.js server.
+
+Frontend tests involve verifying correct routing based on /:slideId and redirecting from an invalid URL to /0. They also ensure the proper display of components on the page. Jest and React Testing Library were used for testing the frontend React app.
+
+The code has also been tested by running it from scratch on a virtual machine with Ubuntu.
+
+## Credits
+
 This project utilizes most of all the following libraries, frameworks, and resources:
 
 - [React](https://reactjs.org/): A JavaScript library for building user interfaces.
