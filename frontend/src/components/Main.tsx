@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Slider from "./Slider";
 import useGetSlidesData from "../hooks/useGetSlidesData";
 
@@ -24,13 +24,13 @@ export default function Main() {
             setImageUrls(Array.from({ length: slideData.length }, () => ''))
             setAudioUrls(Array.from({ length: slideData.length }, () => ''))
         }
-    }, [paramId, slideData])
+    }, [paramId, slideData, imageUrls])
 
     useEffect(() => {
         if (!slideData || slideId === null) return
         const img: string[] = imageUrls
         const audio: string[] = audioUrls
-        slideData.map((slide, id) => {
+        slideData.forEach((slide, id) => {
             if (id === slideId) {
                 if (!img.includes(slide.imageURL)) {
                     img[slideId] = slide.imageURL
@@ -58,12 +58,12 @@ export default function Main() {
         })
         setImageUrls(img)
         setAudioUrls(audio)
-    }, [slideId, slideData])
+    }, [slideId, slideData, audioUrls, imageUrls])
 
     if (slideId === null) {
         return (
             <div data-testid="main-component" className="w-screen h-screen flex justify-center items-center">
-                <img src='/favicon-32x32.png' />
+                <img src='/favicon-32x32.png' alt='opera player logo'/>
             </div>
         )
     }

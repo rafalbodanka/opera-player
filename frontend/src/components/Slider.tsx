@@ -76,14 +76,14 @@ export default function Slider({
             <div className="flex">
                 {imageUrls.map((imgUrl, index) => (
                     <div key={index} className="relative w-screen h-screen overflow-hidden flex-shrink-0 duration-1000" style={{ translate: `${-100 * slideId}%` }}>
-                        <img className="w-screen h-screen object-cover blur-md scale-105" src={imgUrl} alt={`Background Image ${index}`} />
+                        <img className="w-screen h-screen object-cover blur-md scale-105" src={imgUrl} alt={`Background ${index}`} />
                         <div className="absolute top-0 left-0 w-screen flex h-screen justify-center items-center">
                             <div className="relative">
                                 {
                                     slideId === index ?
-                                    <img data-testid='image' ref={imgRef} className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
+                                    <img data-testid='image' ref={imgRef} className="max-h-screen" src={imgUrl} alt={`${index}`}/>
                                     :
-                                    <img className="max-h-screen" src={imgUrl} alt={`Image ${index}`}/>
+                                    <img className="max-h-screen" src={imgUrl} alt={`${index}`}/>
                                 }
                                 {
                                 !isStartVisible &&

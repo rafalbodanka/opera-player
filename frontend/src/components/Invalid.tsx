@@ -6,7 +6,8 @@ export default function Invalid() {
 
     useEffect(() => {
         navigate('/0')
-    }, [])
+    }, [navigate])
+    
     return (
         <div data-testid="invalid-component" className="w-screen h-screen flex justify-center items-center">
         </div>
