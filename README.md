@@ -59,15 +59,14 @@ Arrays imageUrls and audioUrls are initially filled with empty strings '' depend
 
 ![Main view](./assets/main-view.png)
 ![Main control view](./assets/main-control-view.png)
-https://github.com/rafalbodanka/opera-player/assets/99665986/99e776eb-e03a-473a-a021-c2f21df8a4e9
 
-
+https://github.com/rafalbodanka/opera-player/assets/99665986/5b9dd124-ff92-411e-a6d3-9b6f736e052c
 
 ### Tests
 
-Backend tests include checking whether endpoints return the correct status code and whether they return the correct content type for a given file type. Mocha, chai, and supertest were used for testing the Express.js server.
+Backend tests include checking whether endpoints return the correct status code and whether they return the correct content type for a given file type. Mocha, chai, and supertest were used for testing the Express.js server. To run tests navigate to backend/ and make sure that all dependencies are installed. Then run `npm test`.
 
-Frontend tests involve verifying correct routing based on /:slideId and redirecting from an invalid URL to /0. They also ensure the proper display of components on the page. Jest and React Testing Library were used for testing the frontend React app.
+Frontend tests involve verifying correct routing based on /:slideId and redirecting from an invalid URL to /0. They also ensure the proper display of components on the page. Jest and React Testing Library were used for testing the frontend React app. To run tests navigate to frontend/ and make sure that all dependencies are installed. Then run `npm test`.
 
 The code has also been tested by running it from scratch on a virtual machine with Ubuntu.
 
